@@ -34,10 +34,19 @@ class Datos:
         for i in range(len(self.habitats)):
             print(self.habitats[i])
 
-    def caracteristicas_habitat(self, habitat, ob_habitat):
-        self.habitat_fijo[habitat] = ob_habitat
+    def caracteristicas_habitat(self, habitat, ob_Habi):
+        if habitat not in self.habitat_fijo:
+            self.habitat_fijo[habitat] = []
+
+        self.habitat_fijo[habitat].append(ob_Habi)
         print("El habitat fue creado existosamente, dentro del zoologico\n")
 
+    def mostrar_habitat(self):
+        for tipo, habitats in self.habitat_fijo.items():
+            print(f"Hábitats de tipo {tipo}:")
+            for habitat in habitats:
+                print(f"Clima:{habitat.clima} y Temperatura de: {habitat.temperatura} con una Humedad: {habitat.humedad} de capacidad: {habitat.capacidad} y solo permite animales de alimentacion: {habitat.alimentacion}")
+            
 
     def verificar(self, tipo):
         for i in range(len(self.habitats)):
@@ -46,27 +55,36 @@ class Datos:
             else:
                 return 0
 
-    def animal_habitat(self, id, habitat):
-
+    def animal_habitat(self, id, habitat,clima):
         if id in self.animales:
             animal = self.animales[id]
             if habitat in self.habitat_fijo:
-                habitat = self.habitat_fijo[habitat]
-                if animal.alimentacion in habitat.alimentacion:
-                    if animal.habitat == habitat.tipo:
-                        if habitat.capacidad != 0:
-                            habitat.capacidad -= 1
-                            if habitat in self.asignacion:
-                                self.asignacion[habitat].append(animal)
+                lista = self.habitat_fijo[habitat]
+                if any(h.tipo == habitat for h in lista):
+                    if any(h.clima == clima for h in lista):
+                        if animal.habitat == habitat:
+                            if any(alimento in animal.alimentacion for h in lista if
+                                   h.tipo == habitat and h.clima == clima for alimento in h.alimentacion):
+                                if any(h.capacidad != 0 for h in lista if h.tipo == habitat and h.clima == clima):
+                                    for h in lista:
+                                        if h.tipo == habitat and h.clima == clima and h.capacidad != 0:
+                                            h.capacidad -= 1
+                                            if h in self.asignacion:
+                                                self.asignacion[h].append(animal)
+                                            else:
+                                                self.asignacion[h] = [animal]
+                                            print("El animal fue asignado exitosamente al habitat\n")
+                                            break
+                                else:
+                                    print("No hay capacidad para ingresar este animal\n")
                             else:
-                                self.asignacion[habitat] = [animal]
+                                print("La dieta de este animal no es optima para este habitat\n")
                         else:
-                            print("No hay capacidad paraingresar este animal")
+                            print("Ese no es el habitat de origen del animal, podria ser perjudicial para su salud\n")
                     else:
-                        print("Ese no es el habitat de origen del animal, podria ser pejudicial para su salud")
+                        print("No coincide el clima con los tipos que hay\n")
                 else:
-                    print("la dieta de este animal no es optima para este habitat")
-
+                    print("Ese habitat no esta en lista del mismo tipo\n")
             else:
                 print("Ese Habitat no existe\n")
         else:

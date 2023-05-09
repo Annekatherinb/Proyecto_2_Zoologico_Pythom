@@ -38,6 +38,9 @@ class ZoologicoController:
                 print("Ese habitat no existe dentro los habitats asignados de oringen de los animales actualmente agregados\n")
 
         if opcion == 4:
+            print("Ingrese uno de las habitat que se ven en pantalla:\n")
+            self.modelo.mostrar_habitat()
+            print("")
             while True:
                 try:
                     pTempA = int(input("Digite el id del animal que quiere ubicar en un habitat: "))
@@ -46,7 +49,11 @@ class ZoologicoController:
                     print("El valor ingresado no es un número entero. Por favor intente nuevamente.")
 
             pTempH = input("Ingrese el habitat donde lo quiere ubicar: ")
-            self.modelo.animal_habitat(pTempA, pTempH)
+            pClima = input("Ingrese el clima adecuado: ")
+            self.modelo.animal_habitat(pTempA, pTempH, pClima)
 
         if opcion == 5:
             self.modelo.mostrar_asignados()
+
+
+
