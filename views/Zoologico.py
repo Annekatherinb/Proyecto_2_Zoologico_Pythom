@@ -1,7 +1,6 @@
 import models.Animal as animalModel
 import models.Habitat as habitatModel
 import models.BaseDatos as plataforma
-from models import BaseDatos
 import controllers.ZoologicoController as zooController
 
 
@@ -34,7 +33,7 @@ class Zoologico:
 
 
             if opcion == 0:
-                print("- Gracias por visitarnos vuelva pronto -")
+                print("- Gracias por visitarnos, vuelva pronto -")
                 break
 
             else:
@@ -49,10 +48,17 @@ class Zoologico:
             if not nombre.isdigit():
                 p = False
             else:
-                print("")
+                print("Los caracteres que ingresando no son validos, se requiere una cadena de texto\n")
+
+        q = True
+        while q == True:
+            especie = str(input("Especie del animal: "))
+            if not especie.isdigit():
+                q = False
+            else:
+                print("Los caracteres que ingresando no son validos, se requiere una cadena de texto\n")
 
 
-        especie = str(input("Especie del animal: "))
         while True:
             try:
                 habitatTemp = int(input("habitat:\n [1] Selvatico\n [2] Acuatico\n [3] Polar\n [4] Desertico\n [5] Otro\n"))
@@ -129,6 +135,7 @@ class Zoologico:
 
 
     def menu_habitat(self, tipo):
+        lista_comida = []
 
         while True:
             try:
@@ -147,10 +154,40 @@ class Zoologico:
         elif humedadTemp == 3:
             humedad = "Baja"
 
-        clima = input("Que clima tiene: ")
-        temperatura = input("Digete la temperatura en grados celsius: ")
+        p = True
+        while p == True:
+            clima = input("Que clima tiene: ")
+            if not clima.isdigit():
+                p = False
+            else:
+                print("Los caracteres que ingresando no son validos, se requiere una cadena de texto\n")
 
-        nuevoHabitat = habitatModel.Habitat(tipo, humedad, clima, temperatura)
+        while True:
+            try:
+                temperatura = int(input("Digite el valor de la temperatura: "))
+                break  # Salir del bucle si el tipo de datos es correcto
+
+            except ValueError:
+                print("El valor ingresado no es un número entero. Por favor intente nuevamente.")
+
+        while True:
+            try:
+                capacidad = int(input("Cual es la capacidad maxima de este habitat: "))
+                break  # Salir del bucle si el tipo de datos es correcto
+
+            except ValueError:
+                print("El valor ingresado no es un número entero. Por favor intente nuevamente.")
+
+        while True:
+            alimento = input("Ingrese un tipo de dieta o escriba 'fin' para finalizar: ")
+            if alimento == 'fin':
+                break
+            if alimento.isdigit():
+                print("Entrada no válida. Debe ingresar un texto.")
+            else:
+                lista_comida.append(alimento)
+
+        nuevoHabitat = habitatModel.Habitat(tipo, humedad, clima, temperatura, capacidad, lista_comida)
         return nuevoHabitat
 
     def solicitar_animal(self, mensaje):

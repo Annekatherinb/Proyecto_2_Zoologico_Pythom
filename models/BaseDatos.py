@@ -8,7 +8,7 @@ class Datos:
         self.asignacion = {}
         self.alimentacion = {}
 
-    def ingresar_animal(self, id, animal):
+    def ingresar_animal(self,id, animal):
         self.animales[id] = animal
 
     def verificar_animal(self, id):
@@ -47,17 +47,26 @@ class Datos:
                 return 0
 
     def animal_habitat(self, id, habitat):
+
         if id in self.animales:
             animal = self.animales[id]
             if habitat in self.habitat_fijo:
                 habitat = self.habitat_fijo[habitat]
-                if animal.habitat == habitat.tipo:
-                    if habitat in self.asignacion:
-                        self.asignacion[habitat].append(animal)
+                if animal.alimentacion in habitat.alimentacion:
+                    if animal.habitat == habitat.tipo:
+                        if habitat.capacidad != 0:
+                            habitat.capacidad -= 1
+                            if habitat in self.asignacion:
+                                self.asignacion[habitat].append(animal)
+                            else:
+                                self.asignacion[habitat] = [animal]
+                        else:
+                            print("No hay capacidad paraingresar este animal")
                     else:
-                        self.asignacion[habitat] = [animal]
+                        print("Ese no es el habitat de origen del animal, podria ser pejudicial para su salud")
                 else:
-                    print("Ese no es el habitat de origen del animal, podria ser pejudicial para su salud")
+                    print("la dieta de este animal no es optima para este habitat")
+
             else:
                 print("Ese Habitat no existe\n")
         else:
