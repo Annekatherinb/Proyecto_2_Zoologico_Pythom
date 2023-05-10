@@ -46,7 +46,7 @@ class Datos:
             print(f"Hábitats de tipo {tipo}:")
             for habitat in habitats:
                 print(f"Clima:{habitat.clima} y Temperatura de: {habitat.temperatura} con una Humedad: {habitat.humedad} de capacidad: {habitat.capacidad} y solo permite animales de alimentacion: {habitat.alimentacion}")
-            
+
 
     def verificar(self, tipo):
         for i in range(len(self.habitats)):
