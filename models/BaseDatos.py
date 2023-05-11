@@ -90,6 +90,15 @@ class Datos:
         else:
             print("Ese animal no se encuentra registrado en el Zoologico\n")
 
+    def agregar_alimentos(self, dieta, alimentos):
+        if dieta not in self.alimentacion:
+            self.alimentacion[dieta] = []
+
+        self.alimentacion[dieta].append(alimentos)
+
+
+
+
     def mostrar_asignados(self):
         for habitat, animales in self.asignacion.items():
             print( f"Habitat: {habitat.tipo} de Clima:{habitat.clima} y Temperatura de: {habitat.temperatura} con una Humedad: {habitat.humedad}")

@@ -38,6 +38,7 @@ class ZoologicoController:
                 print("Ese habitat no existe dentro los habitats asignados de oringen de los animales actualmente agregados\n")
 
         if opcion == 4:
+
             print("Ingrese uno de las habitat que se ven en pantalla:\n")
             self.modelo.mostrar_habitat()
             print("")
@@ -54,6 +55,26 @@ class ZoologicoController:
 
         if opcion == 5:
             self.modelo.mostrar_asignados()
+
+        if opcion == 6:
+            print("[1]Carnivoro.\n [2]Herbivoro.\n [3]Omnivoro.")
+            while True:
+                dieta=input("Ingrese el tipo de dieta")
+                if dieta.isdigit():
+                    break
+                else:
+                    print("Entrada no valida")
+
+            while True:
+                alimentos = input("Ingrese un alimento a agregar o escriba 'fin' para finalizar: ")
+                if alimentos == 'fin':
+                    break
+                if alimentos.isdigit():
+                    print("Por favor ingrese texto.")
+                else:
+                    self.modelo.agregar_alimentos()
+
+        if opcion == 7:
 
 
 
