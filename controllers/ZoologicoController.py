@@ -57,13 +57,26 @@ class ZoologicoController:
             self.modelo.mostrar_asignados()
 
         if opcion == 6:
-            print("[1]Carnivoro.\n [2]Herbivoro.\n [3]Omnivoro.")
+            print("[1]Carnivoro.\n[2]Herbivoro.\n[3]Omnivoro.")
             while True:
-                dieta=input("Ingrese el tipo de dieta")
+                dieta = input("Ingrese el tipo de dieta: ")
                 if dieta.isdigit():
-                    break
+                    if(dieta<0 or dieta>3):
+                        print("Entrada no valida")
+                    else:
+                        dieta = int(dieta)
+                        break
                 else:
-                    print("Entrada no valida")
+                    print("Digite un numero por favor")
+
+            if dieta == 1:
+                dietaSeleccionada = "carnivoro"
+            elif dieta == 2:
+                dietaSeleccionada = "herviboro"
+            elif dieta == 3:
+                dietaSeleccionada = "omnivoro"
+            else:
+                print("No entro")
 
             while True:
                 alimentos = input("Ingrese un alimento a agregar o escriba 'fin' para finalizar: ")
@@ -72,9 +85,21 @@ class ZoologicoController:
                 if alimentos.isdigit():
                     print("Por favor ingrese texto.")
                 else:
-                    self.modelo.agregar_alimentos()
+                    self.modelo.agregar_alimentos(dietaSeleccionada, alimentos)
+            self.modelo.imprimirDiccionario()
 
         if opcion == 7:
-
+            print("¿Que desea hacer con el animal?")
+            print("[1]Comer.\n[2]Dormir.\[3]Jugar.")
+            while True:
+                accion = input("Ingrese el tipo de dieta: ")
+                if accion.isdigit():
+                    if(accion>3):
+                        print("Opcion no existente")
+                    else:
+                        accion=int(dieta)
+                        break
+                else:
+                    print("Digite un numero por favor")
 
 

@@ -106,3 +106,6 @@ class Datos:
             for animal in animales:
                 print(animal.nombre, end=", ")
         print("\n")
+
+    def imprimirDiccionario(self):
+        print(self.alimentacion)
