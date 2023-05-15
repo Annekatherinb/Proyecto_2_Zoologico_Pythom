@@ -75,8 +75,7 @@ class ZoologicoController:
                 dietaSeleccionada = "herviboro"
             elif dieta == 3:
                 dietaSeleccionada = "omnivoro"
-            else:
-                print("No entro")
+
 
             while True:
                 alimentos = input("Ingrese un alimento a agregar o escriba 'fin' para finalizar: ")
@@ -89,10 +88,11 @@ class ZoologicoController:
             self.modelo.imprimirDiccionario()
 
         if opcion == 7:
+
             print("¿Que desea hacer con el animal?")
             print("[1]Comer.\n[2]Dormir.\[3]Jugar.")
             while True:
-                accion = input("Ingrese el tipo de dieta: ")
+                accion = input("Ingrese la accion a realizar: ")
                 if accion.isdigit():
                     if(accion>3):
                         print("Opcion no existente")
@@ -100,6 +100,39 @@ class ZoologicoController:
                         accion=int(dieta)
                         break
                 else:
-                    print("Digite un numero por favor")
+                    print("Digite un numero valido por favor")
 
+                while True:
+                    idAnimal = input("Ingrese el id del animal: ")
+                    if idAnimal.isdigit():
+                        verificadorId=self.modelo.verificadorId(idAnimal)
+                        if verificadorId == True:
+                            break
+                        else:
+                            print("Id no encontrado")
+                    else:
+                        print("Digite un numero por favor")
 
+                if accion == 1:
+                    self.modelo.jugar(idAnimal)
+
+                elif accion == 2:
+                    self.modelo.dormir(idAnimal)
+
+                elif accion == 3:
+                    print("Digite el tipo de dieta\ncarnivoro\nherbivoro\nomnivoro")
+                    while True:
+                        alimentacion = input()
+                        if not alimentacion.isdigit():
+                            if alimentacion == "carnivoro" or alimentacion == "herviboro" or alimentacion == "omnivoro":
+                                verificarDieta = self.modelo.verificarDieta(idAnimal, alimentacion)
+                                if verificarDieta == True:
+                                    break
+                                else:
+                                    print("La dieta no coincide con la del animal")
+                            else:
+                                print("Opcion invalida")
+                        else:
+                            print("Digite la opcion en texto.")
+
+                    self.modelo.comer(idAnimal, alimentacion)

@@ -109,3 +109,70 @@ class Datos:
 
     def imprimirDiccionario(self):
         print(self.alimentacion)
+
+    def verificadirId(self, animal):
+        if animal in self.animales:
+            return True
+        else:
+            return False
+
+    def verificarDieta(self, id, dieta):
+        animal = self.animales[id]
+        if animal.alimentacion == dieta:
+            return True
+        else:
+            return False
+
+    def jugar(self, id):
+        animal = self.animales[id]
+        if animal.juego == 0:
+            print("El animal esta jugando")
+            animal.juego = 1
+        else:
+            print("El animal ya jugo")
+
+    def dormir(self, id):
+
+        animal = self.animales[id]
+        while True:
+            horasDormir = input("Ingrese la cantidad de horas a dormir: ")
+            if horasDormir.isdigit():
+                horasDormir = int(horasDormir)
+                if animal.horasSueno < horasDormir:
+                    print("La cantidad ingresada supera el limite permitido para este animal")
+                else:
+                    break
+            else:
+                print("Digite un numero")
+
+
+        animal.horasSueno -= horasDormir
+        print("El animal esta durmiendo")
+
+    def comer(self,id, dieta):
+        alimentos=self.alimentacion[dieta]
+        print("Seleccione uno de los alimentos para el animal")
+        for i in range(len(alimentos)):
+            print(i+1, alimentos[i])
+
+        while True:
+            comidaSeleccionada = input("Ingrese el numero de la comida a seleccionar: ")
+            if comidaSeleccionada.isdigit():
+                comidaSeleccionada = int(comidaSeleccionada)
+                if comidaSeleccionada > 0 and comidaSeleccionada <= len(alimentos)+1:
+                    print("El animal esta comiendo", alimentos[comidaSeleccionada+1])
+                    break
+                else:
+                    print("Opcion invalicz")
+            else:
+                print("Digite un numero")
+
+
+
+
+
+
+
+
+
+

@@ -154,11 +154,10 @@ class Zoologico:
         elif humedadTemp == 3:
             humedad = "Baja"
 
-        p = True
-        while p == True:
+        while True:
             clima = input("Que clima tiene: ")
             if not clima.isdigit():
-                p = False
+                break
             else:
                 print("Los caracteres que ingresando no son validos, se requiere una cadena de texto\n")
 
