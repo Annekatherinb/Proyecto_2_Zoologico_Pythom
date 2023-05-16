@@ -20,7 +20,7 @@ class Zoologico:
             print("4. Asignar habitat a un Animal")
             print("5. Mostrar los habitats con los animales")
             print("6. Dieta de los animales")
-            print("7. Acciones:\n 1.Jugar\n 2.Dormir\n 3.Comer")
+            print("7. Acciones")
             print("0. Para salir del sistema\n")
 
             while True:

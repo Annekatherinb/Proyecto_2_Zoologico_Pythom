@@ -96,9 +96,6 @@ class Datos:
 
         self.alimentacion[dieta].append(alimentos)
 
-
-
-
     def mostrar_asignados(self):
         for habitat, animales in self.asignacion.items():
             print( f"Habitat: {habitat.tipo} de Clima:{habitat.clima} y Temperatura de: {habitat.temperatura} con una Humedad: {habitat.humedad}")
@@ -108,9 +105,12 @@ class Datos:
         print("\n")
 
     def imprimirDiccionario(self):
-        print(self.alimentacion)
+        for key in self.alimentacion:
+            print(key)
+            for i in self.alimentacion[key]:
+                print("alimentos:",i)
 
-    def verificadirId(self, animal):
+    def verificadorId(self, animal):
         if animal in self.animales:
             return True
         else:
@@ -118,6 +118,7 @@ class Datos:
 
     def verificarDieta(self, id, dieta):
         animal = self.animales[id]
+        print("La dieta es:",animal.alimentacion)
         if animal.alimentacion == dieta:
             return True
         else:
@@ -147,25 +148,30 @@ class Datos:
 
 
         animal.horasSueno -= horasDormir
-        print("El animal esta durmiendo")
+        print("El animal esta durmiendo, le quedan", animal.horasSueno, "para dormir en otro momento")
 
-    def comer(self,id, dieta):
-        alimentos=self.alimentacion[dieta]
-        print("Seleccione uno de los alimentos para el animal")
-        for i in range(len(alimentos)):
-            print(i+1, alimentos[i])
+    def comer(self, id, dieta):
+        alimentos = self.alimentacion.get(dieta, [])
+        if not alimentos:
+            print("No se encontraron alimentos para la dieta", dieta)
+            return
+
+        print("Seleccione uno de los alimentos para el animal:")
+        for i, comida in enumerate(alimentos, 1):
+            print(i, comida)
 
         while True:
-            comidaSeleccionada = input("Ingrese el numero de la comida a seleccionar: ")
+            comidaSeleccionada = input("Ingrese el número de la comida a seleccionar: ")
             if comidaSeleccionada.isdigit():
                 comidaSeleccionada = int(comidaSeleccionada)
-                if comidaSeleccionada > 0 and comidaSeleccionada <= len(alimentos)+1:
-                    print("El animal esta comiendo", alimentos[comidaSeleccionada+1])
+                if 1 <= comidaSeleccionada <= len(alimentos):
+                    print("El animal está comiendo", alimentos[comidaSeleccionada - 1])
                     break
                 else:
-                    print("Opcion invalicz")
+                    print("Opción inválida")
             else:
-                print("Digite un numero")
+                print("Digite un número válido")
+
 
 
 
